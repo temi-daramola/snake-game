@@ -1,11 +1,12 @@
+import { Link } from "@common/components/link/Link";
 import { constants } from "@common/constant";
-import { Link } from "@components/link/Link";
-import useRouter from '@hooks/useRouter';
+import { hooks } from "@common/hooks/_index";
+
 import { useLocation } from 'react-router';
 
 
 export const TextLink = ({ name, url, ...props }) => {
-  const {location} = useRouter()
+  const {location} = hooks.useRouter()
   const isActive = location === url;
   return (
     <Link

@@ -1,25 +1,20 @@
 import { Route, Routes, useLocation } from "react-router";
 import { useEffect } from "react";
-import Signup from "@modules/auth/_page/Signup";
-import { Login } from "@modules/auth/_page/Login";
-import Home from "@modules/home/_page/Home";
 import { hooks } from "@common/hooks/_index";
 import { constants } from "@common/constant";
-
+import AuthRedirectGuard from "@application/middleware/AuthRedirectGuard";
+import { NavLayout } from "@application/layout/AppLayout";
+import { DashboardLayout } from "@application/layout/Dashboard-Layout";
+import { Snake } from "@modules/snake/page/Snake";
+import { LayoutInitAccount } from "@application/middleware/LayoutInitAccount-v2";
 
 function AppRoutes() {
   const location = useLocation();
-  const {appRoutes} = constants
+  const { appRoutes } = constants;
 
   return (
     <Routes location={location} key={location.pathname}>
-
-      <Route index path={appRoutes.index} element={<Home />}/>
-      <Route path={appRoutes.signup} element={<Signup />}/>
-      <Route path={appRoutes.login} element={<Login />}/>
-
-      {/* Not found route, if needed */}
-      {/* <Route path="*" element={<Navigate to="/not-found" replace />} /> */}
+      <Route index path={appRoutes.home} element={<Snake />} />
     </Routes>
   );
 }

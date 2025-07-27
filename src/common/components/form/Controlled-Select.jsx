@@ -15,9 +15,7 @@ export const ControlledSelect = ({ label, onChange, baseProps, ...props }) => {
   return (
     <FormControl isInvalid={meta.error && meta.touched} {...baseProps}>
       <FormLabel>{label}</FormLabel>
-
       <Box bg="white" color="black" as={Select} {...field} {...props} />
-
       <FormErrorMessage color="black">{meta.error}</FormErrorMessage>
     </FormControl>
   );

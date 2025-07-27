@@ -85,14 +85,6 @@ export const useRequest = (fetchFunction) => {
     [fetchFunction]
   );
 
-  // useEffect(() => {
-  //   console.log("cache ", cache);
-  // }, [data]);
-
-  // useEffect(() => {
-  //   console.log("isLoading ", isLoading);
-  // }, [isLoading]);
-
   return {
     data,
     isLoading,

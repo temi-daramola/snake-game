@@ -5,7 +5,7 @@ import { ModalContent, ModalHeader, ModalFooter } from "@chakra-ui/react";
 import { ModalBody, ModalCloseButton } from "@chakra-ui/react";
 
 function Modal({
-  isOverlayClose,
+  isOverlayClose = true,
   isCentered,
   size,
   isOpen,
@@ -25,7 +25,7 @@ function Modal({
       isCentered={
         isCentered === null || isCentered === undefined ? true : isCentered
       }
-      closeOnOverlayClick={isOverlayClose || true}
+      closeOnOverlayClick={isOverlayClose}
       motionPreset="slideInBottom" //scale slideInBotttom
     >
       <ChakraModalOverlay backdropFilter="blur(3px) hue-rotate(10deg)" />
@@ -36,7 +36,7 @@ function Modal({
             <ModalCloseButton onClick={reset} />
           </ModalHeader>
         )}
-
+        
         <ModalBody>{children}</ModalBody>
       </ModalContent>
     </ChakraModal>

@@ -1,4 +1,3 @@
-
 export const roles = {
   admin: "admin",
   superAdmin: "super-admin",
@@ -9,7 +8,6 @@ export const appRoutes = {
   home: "/",
   landing: "/landing",
 
-  
   signup: "/auth/signup",
   login: "/auth/login",
   confirmation: "/auth/confirmation/:email?",
@@ -19,12 +17,39 @@ export const appRoutes = {
   resetPassword: "/auth/reset-password/:token",
   resetPasswordSuccess: "/auth/reset-password/success",
 
- // management routes
+    snake: "/snake",
+};
+
+export const appRoutesAppend = {
+  home: "/",
+  landing: "/landing",
+
+  signup: "/auth/signup",
+  login: "/auth/login",
+  confirmation: "/auth/confirmation",
+  verify: "/auth/verify-email",
+
+  forgotPassword: "/auth/forgot-password",
+  resetPassword: "/auth/reset-password",
+  resetPasswordSuccess: "/auth/reset-password/success",
+  productInfo: "/product/info",
+
+  // management routes
   dashboard: "/dashboard",
 };
 
+export const navLinks = [
+  { name: "Home", url: appRoutes.home },
+];
+
+const navItems = {
+  home: { name: "Home", url: appRoutes.home },
+};
 
 export const constants = {
-appRoutes,
-roles
-}
+  appRoutesAppend,
+  appRoutes,
+  roles,
+  navLinks,
+  navItems,
+};

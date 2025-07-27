@@ -1,51 +1,71 @@
-import { assets } from "@assets/_index";
-import { Box, Button, Flex, IconButton, Image } from "@chakra-ui/react";
-import Drawer from "@components/drawer/Drawer";
-import { Link } from "@components/link/Link";
-import { TextLink } from "@components/link/Text-Link";
-import { IntroNavBar } from "@components/nav-bar/Intro-Nav";
-import { SectionWrapper } from "@components/wrappers/Section-Wrapper";
-import { constants } from "@constants/index";
-import useScroll from "@hooks/useScroll";
-import { useToggle } from "@hooks/useToggle";
+import {
+  Avatar,
+  Icon,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
+import Drawer from "@common/components/drawer/Drawer";
+
+// import Drawer from "@common/@components/drawer/Drawer";
+import { Link } from "@common/components/link/Link";
+import { TextLink } from "@common/components/link/Text-Link";
+// import { IntroNavBar } from "@common/@components/nav-bar/Intro-Nav";
+
 import React from "react";
-import { FiMenu } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiHome,
+  FiLock,
+  FiMenu,
+  FiShoppingBag,
+  FiShoppingCart,
+  FiUser,
+} from "react-icons/fi";
+import { constants } from "@common/constant";
+import { hooks } from "@common/hooks/_index";
+import { SectionWrapper } from "@common/components/wrappers/Section-Wrapper";
+import { FaCar, FaUser } from "react-icons/fa";
+import { BaseButton } from "@common/components/button/Base-Button";
 
+const checkIsAuthRoute = (currentUrl) => {
+  const isAuthRoute = currentUrl.startsWith("/auth");
+  return isAuthRoute;
+};
 
-
-export const NavBar = ({navLinks}) => {
-  const menu = useToggle();
+export const NavBar = ({ navLinks }) => {
+  const menu = hooks.useToggle();
+  const router = hooks.useRouter();
   const toggleMenu = () => menu.set(!menu.isOpen);
-  const scroller = useScroll();
+
+  const isAuthRoute = checkIsAuthRoute(router.url);
 
   return (
-    <Box>
-      <Box display={{ base: "none", lg: "block" }}>
-        <IntroNavBar />
-      </Box>
-
-      <Drawer isOpen={menu.isOpen} onClose={toggleMenu}>
-        <SectionWrapper py="50px">
-          <NavBarItems handleScroll={scroller.handleScroll} />
-          <Box display={{ base: "block", lg: "none" }}>
-            <IntroNavBar mt="30px" />
-          </Box>
-        </SectionWrapper>
-      </Drawer>
-
-      <Box bg={constants.colors.primaryTint2}>
-        <SectionWrapper py="32px">
+     <Box borderBottom="1px solid #00000020">
+        <SectionWrapper py="20px">
           <Box display={{ base: "block", md: "none" }}>
             <IconButton
               size="sm"
               bg="#00000020"
               icon={<FiMenu />}
-              onClick={toggleMenu}
+              // onClick={toggleMenu}
             />
           </Box>
 
           <Box display={{ base: "none", xl: "block" }}>
-            <NavBarItems menu={menu} handleScroll={scroller.handleScroll} />
+            <NavBarItems menu={menu} isAuthRoute={isAuthRoute} />
           </Box>
 
           <Flex
@@ -60,73 +80,135 @@ export const NavBar = ({navLinks}) => {
                 size="sm"
                 bg="#00000020"
                 icon={<FiMenu />}
-                onClick={toggleMenu}
+                // onClick={toggleMenu}
               />
             </Box>
           </Flex>
         </SectionWrapper>
       </Box>
-    </Box>
-  );
-};
-
-const NavLink = ({ name, url, ...props }) => {
-  return (
-    <TextLink
-      name={name}
-      url={url}
-      me={{ xl: "64px" }}
-      mt={{ base: "20px", xl: "0px" }}
-      {...props}
-    ></TextLink>
   );
 };
 
 const BrandLink = ({ ...props }) => {
   return (
-    <Link to={constants.appRoutes.index}>
-      <Image
+    <Link to={constants.appRoutes.home}>
+      <Heading fontSize="20px" fontWeight="500">
+        Ecommerce store
+      </Heading>
+      {/* <Image
         src={assets.logoColored}
         h={{ base: "40px", xl: "100%" }}
         minW={{ base: "40px", xl: "100%" }}
-      />
+      /> */}
     </Link>
   );
 };
 
-const NavBarItems = ({ menu, handleScroll }) => {
+const NavLink = ({ name, icon, url, ...props }) => {
+  return (
+    <Link
+      to={url}
+      me={{ xl: "44px" }}
+      mt={{ base: "20px", xl: "0px" }}
+      {...props}
+    >
+      <Flex alignItems="center">
+        {icon && <Icon me={3} as={icon} />}
+        <Text fontWeight="600">{name}</Text>
+      </Flex>
+    </Link>
+  );
+};
+
+const NavBarItems = ({ menu, isAuthRoute, account }) => {
+  const { navItems } = constants;
   return (
     <Flex
       flexDir={{ base: "column", xl: "row" }}
       alignItems={{ xl: "center" }}
       justifyContent={{ xl: "space-between" }}
     >
-      <Box>
-        <BrandLink />
-      </Box>
+      <BrandLink />
 
       <Flex
         flexDir={{ base: "column", xl: "row" }}
         alignItems={{ xl: "center" }}
         mt={{ base: "50px", xl: "0px" }}
       >
-        {navLinks.map((item, index) => (
-          <NavLink key={index} name={item.name} url={item.url}  />
-        ))}
+        <NavLink name={navItems.home.name} url={navItems.home.url} />
 
-        {menu && (
-          <Button
-            bg={constants.colors.primary}
-            minH="52px"
-        
-            color={constants.colors.white}
-            onClick={() => handleScroll("quote")}
-            fontFamily={constants.fonts.regular}
-          >
-            Request A Service
-          </Button>
+        {!isAuthRoute && (
+          <React.Fragment>
+            <NavLink
+              name={navItems.orders.name}
+              url={navItems.orders.url}
+              icon={FaCar}
+            />
+            {/* <NavLink
+          name={navItems.account.name}
+          url={navItems.account.url}
+          icon={FiUser}
+        /> */}
+
+            <NavLink
+              name={navItems.cart.name}
+              url={navItems.cart.url}
+              icon={FiShoppingCart}
+            />
+
+            {/* show the signin link if not signed */}
+            {!account && (
+              <Link to={constants.appRoutes.login}>
+                <BaseButton bg="purple.500" color="white" size="md">
+                  Sign in
+                </BaseButton>
+              </Link>
+            )}
+
+            {account && (
+              <React.Fragment>
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    // bg="transparent"
+                    _hover={{ bg: "transparent" }}
+                    _active={{ bg: "transparent" }}
+                    _expanded={{ bg: "transparent" }}
+                    _focus={{ boxShadow: "none", bg: "transparent" }}
+                    rightIcon={<FiChevronDown />}
+                  >
+                    <Avatar h="30px" w="30px" />
+                  </MenuButton>
+
+                  <MenuList>
+                    <MenuItem>
+                      <NavLink
+                        name={navItems.account.name}
+                        url={navItems.account.url}
+                        icon={FaUser}
+                      />
+                    </MenuItem>
+                    <MenuItem onClick={() => alert("clicked")}>
+                      <NavLink name={"Log out"} url={"#"} icon={FiLock} />
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </React.Fragment>
+            )}
+          </React.Fragment>
         )}
       </Flex>
     </Flex>
   );
 };
+
+{
+  /* <Drawer isOpen={menu.isOpen} onClose={toggleMenu}>
+        <SectionWrapper py="50px">
+          <NavBarItem={scrolle} />
+          <Box display={{ base: "block", lg: "none" }}>
+            <IntroNavBar mt="30px" />
+          </Box>
+        </SectionWrapper>
+      </Drawer> */
+}

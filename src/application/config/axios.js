@@ -4,4 +4,4 @@ const baseRouteLive = "https://tiny-lion-train.cyclic.app"
 const api = axios.create({
   baseURL: baseRoute,
 });
-export { api };
+export { api, baseRoute };

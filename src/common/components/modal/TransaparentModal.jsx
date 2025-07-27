@@ -1,4 +1,5 @@
-import Modal from '@components/modal/Modal';
+
+import Modal from "@common/components/modal/Modal";
 import React, { useEffect } from "react";
 
 export const TransparentModal = ({ children, ...props }) => {
@@ -7,7 +8,7 @@ export const TransparentModal = ({ children, ...props }) => {
     shadow: "none",
   };
   return (
-    <Modal {...props} bg="red" contentProps={contentProps}>
+    <Modal {...props} contentProps={contentProps}>
       {children}
     </Modal>
   );
