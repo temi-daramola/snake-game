@@ -47,7 +47,6 @@ function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={value} >
-      
       <React.Fragment>{children}</React.Fragment>
     </AppContext.Provider>
   );
