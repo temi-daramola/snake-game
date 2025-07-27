@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import {Flex, Heading } from "@chakra-ui/react";
 import SnakeGame from "../components/Snake-Game";
 
 export const Snake = () => {
