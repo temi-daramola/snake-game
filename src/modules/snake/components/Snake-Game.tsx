@@ -284,7 +284,7 @@ function SnakeGame() {
         <Flex mt={0} direction="column" align="center">
           <Button
             colorScheme="teal"
-            size="sm"
+            size="md"
             onClick={() => changeDirection("UP")}
           >
             <FiArrowUp />
@@ -292,14 +292,14 @@ function SnakeGame() {
           <Flex gap="60px" mb={5} my={4}>
             <Button
               colorScheme="teal"
-              size="sm"
+              size="md"
               onClick={() => changeDirection("LEFT")}
             >
               <FiArrowLeft />
             </Button>
             <Button
               colorScheme="teal"
-              size="sm"
+              size="md"
               onClick={() => changeDirection("RIGHT")}
             >
               <FiArrowRight />
@@ -307,7 +307,7 @@ function SnakeGame() {
           </Flex>
           <Button
             colorScheme="teal"
-            size="sm"
+            size="md"
             onClick={() => changeDirection("DOWN")}
           >
             <FiArrowDown />
